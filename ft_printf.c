@@ -1,9 +1,5 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <limits.h>
-#include <stdint.h>
-#include <stdarg.h>
-#include <stdlib.h>
+#include "ft_printf.h"
+
 static void		lengths(int n, size_t *len, int *weight)
 {
 	*len = 1;
@@ -155,11 +151,7 @@ int write_num(int64_t num){
 	return (num_len(num));
 
 }
-
-int ft_printf(const char *format, ...)
-{
-	va_list ap;
-	va_start(ap, format);
+int parse_format(const char *format, va_list ap){
 	int len = 0;
 
 	int i = 0;
@@ -168,6 +160,7 @@ int ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
+			// check_all();
 			if (format[i] == 's')
 				len += write_str(va_arg(ap, char *));
 			else if (format[i] == 'c')
@@ -178,19 +171,65 @@ int ft_printf(const char *format, ...)
 				len += write_num(va_arg(ap, int64_t));
 			else if (format[i] == 'f')
 				len += write_float_to_string(va_arg(ap, double), 6);
+
+			// else if (format[i] == 'p' && ++i)
+			// 	len += write_(va_arg(ap, int64_t));
+			// else if (format[i] == 'i' && ++i)
+			// 	len += write_(va_arg(ap, int64_t));
+			// else if (format[i] == 'o' && ++i)
+			// 	len += write_(va_arg(ap, int64_t));
+			// else if (format[i] == 'u' && ++i)
+			// 	len += write_(va_arg(ap, int64_t));
+			// else if (format[i] == 'x' && ++i)
+			// 	len += write_(va_arg(ap, int64_t));
+			// else if (format[i] == 'X' && ++i)
+			// 	len += write_(va_arg(ap, int64_t));
+			// else if (format[i] == 'hh' && ++i)
+			// 	len += write_(va_arg(ap, int64_t));
+			// else if (format[i] == 'h' && ++i)
+			// 	len += write_(va_arg(ap, int64_t));
+			// else if (format[i] == 'l' && ++i)
+			// 	len += write_(va_arg(ap, int64_t));
+			// else if (format[i] == 'll' && ++i)
+			// 	len += write_(va_arg(ap, int64_t));
 			//else if (format[i] == 'h')
 			//len += write_hexa(va_arg(ap, ))
+
 		}
 		else
 			len += write(1, &format[i], 1);
 		i++;
 	}
-	va_end(ap);
 	return len;
 }
 
+int ft_printf(const char *format, ...)
+{
+	int res;
+	va_list ap;
+
+	va_start(ap, format);
+	res = parse_format(format, ap);
+	va_end(ap);
+	return res;
+}
+
+void set_width(t_state *state)
+{
+	state->params.width = 22;
+}
+
 int main(void){
-	int si = printf(".%s, %ld, %ld, %ld, %ld, %s, %c, %d, %f\n", "abc", -1 -9223372036854775807L, 92233720368L, -9223372036855807L, 24245L, "lolo", '+', +24, 0.936);
-	int mi = ft_printf(".%s, %ld, %ld, %ld, %ld, %s, %c, %d, %f\n", "abc", -1 -9223372036854775807L, 92233720368L, -9223372036855807L, 24245L, "lolo", '+', +24, 0.936);
-	printf("%d %d\n", mi, si);
+	t_state ponatnoe;
+
+	ponatnoe.buff[0] = 'l';
+	ponatnoe.buff[1] = 'u';
+	ponatnoe.buff[2] = '\0';
+	// ponatnoe.params.width = 123;
+	set_width(&ponatnoe);
+	int si = printf(".%s, %ld, %ld, %ld, %ld, %s, %c, %d, %.2f, %d\n", "abc", -1 -9223372036854775807L, 92233720368L, -9223372036855807L, 24245L, "lolo", '+', +24, 300.936, 100);
+	int mi = ft_printf(".%s, %ld, %ld, %ld, %ld, %s, %c, %d, %.2f, %d\n", "abc", -1 -9223372036854775807L, 92233720368L, -9223372036855807L, 24245L, "lolo", '+', +24, 300.936, 100);
+	// printf("%d %d\n", mi, si);
+	printf("%s\n, %d\n",  ponatnoe.buff, ponatnoe.params.width);
+
 }
