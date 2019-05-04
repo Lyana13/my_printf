@@ -110,7 +110,6 @@ int write_float_to_string(double num, int pres){
 	return len;
 }
 
-
 int write_str(const char *str){
 	int l;
 	l = 0;
@@ -151,67 +150,91 @@ int write_num(int64_t num){
 	return (num_len(num));
 
 }
-int parse_format(const char *format, va_list ap){
-	int len = 0;
 
-	int i = 0;
-	while(format[i] != '\0')
-	{
+int parse_format(const char *format, va_list args, t_buff *buff){
+	int i;
+
+	i = 0;
+	while (format[i] != '\0') {
 		if (format[i] == '%')
-		{
-			i++;
-			// check_all();
-			if (format[i] == 's')
-				len += write_str(va_arg(ap, char *));
-			else if (format[i] == 'c')
-				len += write_char(va_arg(ap, int32_t));
-			else if (format[i] == 'd')
-				len += write_num(va_arg(ap, int32_t));
-			else if (format[i] == 'l' && ++i)
-				len += write_num(va_arg(ap, int64_t));
-			else if (format[i] == 'f')
-				len += write_float_to_string(va_arg(ap, double), 6);
-
-			// else if (format[i] == 'p' && ++i)
-			// 	len += write_(va_arg(ap, int64_t));
-			// else if (format[i] == 'i' && ++i)
-			// 	len += write_(va_arg(ap, int64_t));
-			// else if (format[i] == 'o' && ++i)
-			// 	len += write_(va_arg(ap, int64_t));
-			// else if (format[i] == 'u' && ++i)
-			// 	len += write_(va_arg(ap, int64_t));
-			// else if (format[i] == 'x' && ++i)
-			// 	len += write_(va_arg(ap, int64_t));
-			// else if (format[i] == 'X' && ++i)
-			// 	len += write_(va_arg(ap, int64_t));
-			// else if (format[i] == 'hh' && ++i)
-			// 	len += write_(va_arg(ap, int64_t));
-			// else if (format[i] == 'h' && ++i)
-			// 	len += write_(va_arg(ap, int64_t));
-			// else if (format[i] == 'l' && ++i)
-			// 	len += write_(va_arg(ap, int64_t));
-			// else if (format[i] == 'll' && ++i)
-			// 	len += write_(va_arg(ap, int64_t));
-			//else if (format[i] == 'h')
-			//len += write_hexa(va_arg(ap, ))
-
-		}
+			handle_specifier(format, &i, args, buff);
 		else
-			len += write(1, &format[i], 1);
-		i++;
+			write_buff(format[i++], buff);
 	}
-	return len;
 }
+
+void handle_specifier(const char *format, int *i, va_list args, t_buff *buff) {
+	if (format[*i] == '%')
+		(*i)++;
+	
+}
+
+
+// int parse_format(const char *format, va_list ap){
+// 	int len = 0;
+
+// 	int i = 0;
+// 	while(format[i] != '\0')
+// 	{
+// 		if (format[i] == '%')
+// 		{
+// 			i++;
+// 			// check_all();
+// 			if (format[i] == 's')
+// 				len += write_str(va_arg(ap, char *));
+// 			else if (format[i] == 'c')
+// 				len += write_char(va_arg(ap, int32_t));
+// 			else if (format[i] == 'd')
+// 				len += write_num(va_arg(ap, int32_t));
+// 			else if (format[i] == 'l' && ++i)
+// 				len += write_num(va_arg(ap, int64_t));
+// 			else if (format[i] == 'f')
+// 				len += write_float_to_string(va_arg(ap, double), 6);
+
+// 			// else if (format[i] == 'p' && ++i)
+// 			// 	len += write_(va_arg(ap, int64_t));
+// 			// else if (format[i] == 'i' && ++i)
+// 			// 	len += write_(va_arg(ap, int64_t));
+// 			// else if (format[i] == 'o' && ++i)
+// 			// 	len += write_(va_arg(ap, int64_t));
+// 			// else if (format[i] == 'u' && ++i)
+// 			// 	len += write_(va_arg(ap, int64_t));
+// 			// else if (format[i] == 'x' && ++i)
+// 			// 	len += write_(va_arg(ap, int64_t));
+// 			// else if (format[i] == 'X' && ++i)
+// 			// 	len += write_(va_arg(ap, int64_t));
+// 			// else if (format[i] == 'hh' && ++i)
+// 			// 	len += write_(va_arg(ap, int64_t));
+// 			// else if (format[i] == 'h' && ++i)
+// 			// 	len += write_(va_arg(ap, int64_t));
+// 			// else if (format[i] == 'l' && ++i)
+// 			// 	len += write_(va_arg(ap, int64_t));
+// 			// else if (format[i] == 'll' && ++i)
+// 			// 	len += write_(va_arg(ap, int64_t));
+// 			//else if (format[i] == 'h')
+// 			//len += write_hexa(va_arg(ap, ))
+
+// 		}
+// 		else
+// 			len += write(1, &format[i], 1);
+// 		i++;
+// 	}
+// 	return len;
+// }
 
 int ft_printf(const char *format, ...)
 {
-	int res;
-	va_list ap;
+	t_buff buff;
+	int size;
+	va_list args;
 
-	va_start(ap, format);
-	res = parse_format(format, ap);
-	va_end(ap);
-	return res;
+	init_buff(&buff);
+	va_start(args, format);
+	parse_format(format, args, &buff);
+	va_end(args);
+	size = buff_size(&buff);
+	flush_buff(&buff);
+	return size;
 }
 
 void set_width(t_state *state)

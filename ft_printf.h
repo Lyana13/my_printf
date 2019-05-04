@@ -13,17 +13,24 @@ typedef struct s_params {
 	int length;
 } t_params;
 
-typedef struct s_state
+typedef struct s_buff
 {
-	t_params params;
-	char buff[4096];	
-} t_state;
+	char data[4096];
+	int pos;	
+} t_buff;
+
+
+void init_buff(t_buff *buff);
+void write_buff(char *c, t_buff *buff);
+void flush_buff(t_buff *buff);
+int buff_size(t_buff *buff);
 
 
 int ft_treatment_char(t_params params, va_list ap);
 int ft_treatment_percent(t_params params, va_list ap);
 int ft_treatment_hex(t_params params, va_list ap);
 int ft_treatment_string(t_params params, va_list ap);
+
 
 
 

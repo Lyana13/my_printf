@@ -1,4 +1,4 @@
-#include <stdio.h>
+wd#include <stdio.h>
 
 int main() {
 	float f;
