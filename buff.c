@@ -1,16 +1,31 @@
 #include "ft_printf.h"
 
 void init_buff(t_buff *buff) {
+	buff->size = 256;
+	buff->data = malloc(buff->size);
 	buff->pos = 0; 
 }
 
-void write_buff(char *c, int len, t_buff *buff){
+void write_buff(char *c, int len, t_buff *buff) {
+	char *tmp;
+
 	while(len > 0) {
-		buff->data[buff->pos] = *c;
-		buff->pos++;
+		if (buff->pos == buff->size) {
+			tmp = malloc(buff->size * 2);
+			ft_memcpy(tmp, buff->data, buff->size);
+			free(buff->data);
+			buff->data = tmp;
+			buff->size *= 2;
+		}
+		write_char_buff(*c, buff);
 		c++;
 		len--;
 	}
+}
+
+void write_char_buff(char c, t_buff *buff) {
+	buff->data[buff->pos] = c;
+	buff->pos++;
 }
 
 void flush_buff(t_buff *buff){
