@@ -4,7 +4,7 @@ void convert_spec(t_spec *s, va_list args, t_buff *buff) {
 	static t_converter (converters[3]) = {
 		{ .conversions = "s", .converter = &convert_string },
 		{ .conversions = "c%", .converter = &convert_char },
-		{ .conversions = "pdiouxX", .converter = &convert_int }
+		{ .conversions = "pdiouxXb", .converter = &convert_int }
 		// { .conversions = "f", .converter = &float_converter },
 	};
 	int i;
