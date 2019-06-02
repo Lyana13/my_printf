@@ -17,15 +17,15 @@ void write_buff(char *c, int len, t_buff *buff) {
 			buff->data = tmp;
 			buff->size *= 2;
 		}
-		write_char_buff(*c, buff);
+		buff->data[buff->pos] = *c;
+		buff->pos++;
 		c++;
 		len--;
 	}
 }
 
 void write_char_buff(char c, t_buff *buff) {
-	buff->data[buff->pos] = c;
-	buff->pos++;
+	write_buff(&c, 1, buff);
 }
 
 void flush_buff(t_buff *buff){

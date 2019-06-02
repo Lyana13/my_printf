@@ -47,15 +47,15 @@ void init_spec(t_spec *spec)
 	spec->flags = 0;
 	spec->width = 0;
 	spec->precision = INIT_PRECISION;
-	spec->length_modifier = H;
+	spec->length_modifier = INIT;
 	spec->specifier = 0;
 }
 
 void correct_spec(t_spec *s) {
-	if (s->precision == INIT_PRECISION && ft_strrchr("diouxX", s->specifier)) 
-		s->precision = 1;
-	else if (s->precision == INIT_PRECISION && ft_strrchr("fF", s->specifier))
+	if (s->precision == INIT_PRECISION && ft_strrchr("fF", s->specifier))
 		s->precision = 6;
+	if (s->specifier == 'p')
+		s->length_modifier = L;
 }
 
 int handle_specification(char *spec, va_list args, t_buff *buff)

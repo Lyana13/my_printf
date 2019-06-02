@@ -1,7 +1,9 @@
 
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
-OBJ	= ft_printf.o buff.o specification_handler.o specification_parsers.o string_converter.o char_converter.o int_converter.o width_handler.o
+OBJ	= ft_printf.o buff.o specification_handler.o specification_parsers.o  \
+	  string_converter.o char_converter.o int_converter.o \
+	  int_converter_helper_1.o int_converter_helper_2.o width_handler.o
 NAME = printf
 
 all: $(NAME)

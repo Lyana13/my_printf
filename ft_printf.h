@@ -13,7 +13,9 @@
 #define FT_PRINTF_FLAG_SPACE 16
 #define INIT_PRECISION -1
 
+
 typedef enum e_length_modifier {
+	INIT,
 	H,
 	HH,
 	L,
@@ -60,3 +62,6 @@ int parse_specifier(char *spec, t_spec *s);
 void convert_string(t_spec *s, va_list args, t_buff *buff);
 void convert_char(t_spec *s, va_list args, t_buff *buff);
 void convert_int(t_spec *s, va_list args, t_buff *buff);
+
+char *get_ascci_int(t_spec *s, va_list args, char *sign);
+unsigned long long int get_int(t_spec *s, va_list args, char *sign);
