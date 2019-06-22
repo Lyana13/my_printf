@@ -33,8 +33,9 @@ unsigned long long int get_int(t_spec *s, va_list args, char *sign) {
 
 	if (is_signed(s)) {
 		i = get_signed_int(s, args);
+		printf("%d\n",i );
 		*sign = (i < 0) ? '-' : '+';
-		return ((unsigned long long int)i);
+		return ((unsigned long long int)(i < 0 ? -i : i));
 	}
 	else {
 		*sign = '+';

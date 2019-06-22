@@ -22,6 +22,16 @@ typedef enum e_length_modifier {
 	LL
 } t_length_modifier;
 
+
+typedef struct s_int_convert {
+	char *num;
+	int num_len;
+	char sign;
+	int width;
+	char *prefix;
+	int prefix_len;
+} t_int_convert;
+
 typedef struct s_spec {
 	char flags;
 	int width;

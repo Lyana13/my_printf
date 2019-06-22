@@ -1,29 +1,29 @@
 #include "ft_printf.h"
 
-void maybe_write_prefix(t_spec *s, char *num, t_buff *buff){
+char* create_prefix(t_spec *s, char *num){
 	if (num[0] == '0')
-		return ;
-	if (s->specifier == 'o')
-		write_buff("0", 1, buff);
-	else if (ft_strchr("xp", s->specifier))
-		write_buff("0x", 2, buff);
-	else if (s->specifier == 'X')
-		write_buff("0X", 2, buff);
+		return ft_strdup("");
+	if (s->specifier == 'p')
+		return ft_strdup("0x");
+	if (s->flags & FT_PRINTF_FLAG_HASH){
+		if (s->specifier == 'o')
+			return ft_strdup("0");
+		else if (s->specifier == 'x')
+			return ft_strdup("0x");
+		else if (s->specifier == 'X')
+			return ft_strdup("0X");
+	}
+	return ft_strdup("");
 }
 
-int calc_width(t_spec *s, char *num, char sign, int num_len){
+int calc_width(t_spec *s, t_int_convert *ic){
 	int width;
 
-	width = s->precision > num_len ? s->precision : num_len;
-	if (num[0] != '0') {
-		if (s->specifier == 'o')
-			width += 1;
-		else if (ft_strchr("xXp", s->specifier))
-			width += 2;
-	}
+	width = s->precision > ic->num_len ? s->precision : ic->num_len;
+	width += ic->prefix_len;
 	if (ft_strchr("diou", s->specifier) &&
-		(sign == '-' ||
-		 (sign == '+' && (s->flags & FT_PRINTF_FLAG_PLUS ||
+		(ic->sign == '-' ||
+		 (ic->sign == '+' && (s->flags & FT_PRINTF_FLAG_PLUS ||
 		 	              s->flags & FT_PRINTF_FLAG_SPACE))))
 		width += 1;
 	return width;
@@ -50,23 +50,31 @@ void maybe_write_sign(t_spec *s, char sign, t_buff *buff){
 		write_char_buff('-', buff);
 }
 
-void convert_int(t_spec *s, va_list args, t_buff *buff) {
-	char *num;
-	char sign;
-	int len;
-	int width;
+void init_converter(t_spec *s, va_list args, t_int_convert *ic){
+	ic->num = get_ascci_int(s, args, &(ic->sign));
+	ic->num_len = ft_strlen(ic->num);
+	ic->prefix = create_prefix(s, ic->num);
+	ic->width = calc_width(s, ic);
+	ic->prefix_len = ft_strlen(ic->prefix);
+}
 
-	num = get_ascci_int(s, args, &sign);
-	len = ft_strlen(num);
-	width = calc_width(s, num, sign, len);
+void cleanup_converter(t_int_convert *ic){
+	free(ic->num);
+	free(ic->prefix);
+}
+
+void convert_int(t_spec *s, va_list args, t_buff *buff) {
+	t_int_convert ic;
+
+	init_converter(s, args, &ic);
 	if (s->flags & FT_PRINTF_FLAG_ZERO)
-		maybe_write_prefix(s, num, buff);
-	maybe_write_width_left(s, width, buff);
+		write_buff(ic.prefix, ic.prefix_len, buff);
+	maybe_write_width_left(s, ic.width, buff);
 	if (!(s->flags & FT_PRINTF_FLAG_ZERO))
-		maybe_write_prefix(s, num, buff);
-	maybe_write_sign(s, sign, buff);
-	maybe_write_precision(s, len, buff);
-	write_buff(num, len, buff);
-	maybe_write_width_right(s, width, buff);
-	free(num);
+		write_buff(ic.prefix, ic.prefix_len, buff);
+	maybe_write_sign(s, ic.sign, buff);
+	maybe_write_precision(s, ic.num_len, buff);
+	write_buff(ic.num, ic.num_len, buff);
+	maybe_write_width_right(s, ic.width, buff);
+	cleanup_converter(&ic);
 }

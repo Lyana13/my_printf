@@ -50,8 +50,8 @@ int main(void){
 	// int mi = ft_printf(".%s, %ld, %ld, %ld, %ld, %s, %c, %d, %.2f, %d\n", "abc", -1 -9223372036854775807L, 92233720368L, -9223372036855807L, 24245L, "lolo", '+', +24, 300.936, 100);
 	// printf("%d %d\n", mi, si);
 	// printf("%s\n, %d\n",  ponatnoe.buff, ponatnoe.params.width);
-	char *fmt = "%20.6X\n";
-	ft_printf(fmt, 3456);
-	printf(fmt, 3456);
+	char *fmt = "%#o\n";
+	ft_printf(fmt, 0);
+	printf(fmt, 0);
 
 }
