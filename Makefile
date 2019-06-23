@@ -22,7 +22,7 @@ $(NAME): $(OBJ) $(LIBFT)
 #	gcc $(OBJ) $(LIBFT) -o $(NAME)
 
 main: $(NAME)
-	gcc main.c $(NAME) -o printf
+	gcc main.c $(NAME)
 
 clean:
 	rm -f $(OBJ)
