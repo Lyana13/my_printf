@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include "libft.h"
+#include "./libft/libft.h"
 
 #define FT_PRINTF_FLAG_HASH 1
 #define FT_PRINTF_FLAG_ZERO 2
@@ -53,6 +53,8 @@ typedef struct	s_converter
 	void			(*converter)(t_spec*, va_list, t_buff*);
 }				t_converter;
 
+int ft_printf(const char *format, ...);
+
 void init_buff(t_buff *buff);
 void write_buff(char *c, int len, t_buff *buff);
 void write_char_buff(char c, t_buff *buff);
@@ -75,3 +77,5 @@ void convert_int(t_spec *s, va_list args, t_buff *buff);
 
 char *get_ascci_int(t_spec *s, va_list args, char *sign);
 unsigned long long int get_int(t_spec *s, va_list args, char *sign);
+
+void init_converter(t_spec *s, va_list args, t_int_convert *ic);

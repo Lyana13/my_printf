@@ -6,9 +6,9 @@ int is_signed(t_spec *s){
 
 long long int get_signed_int(t_spec *s, va_list args){
 	if (s->length_modifier == H)
-		return va_arg(args, short int);
+		return (short int)va_arg(args, int);
 	if (s->length_modifier == HH)
-		return va_arg(args, char);
+		return (char)va_arg(args, int);
 	if (s->length_modifier == L)
 		return va_arg(args, long int);
 	if (s->length_modifier == LL)
@@ -18,9 +18,9 @@ long long int get_signed_int(t_spec *s, va_list args){
 }
 unsigned long long int get_unsigned_int(t_spec *s, va_list args){
 	if (s->length_modifier == H)
-		return va_arg(args, unsigned short int);
+		return (unsigned short int)va_arg(args, int);
 	if (s->length_modifier == HH)
-		return va_arg(args, unsigned char);
+		return (unsigned char)va_arg(args, int);
 	if (s->length_modifier == L)
 		return va_arg(args, unsigned long int);
 	if (s->length_modifier == LL)
@@ -33,7 +33,6 @@ unsigned long long int get_int(t_spec *s, va_list args, char *sign) {
 
 	if (is_signed(s)) {
 		i = get_signed_int(s, args);
-		printf("%d\n",i );
 		*sign = (i < 0) ? '-' : '+';
 		return ((unsigned long long int)(i < 0 ? -i : i));
 	}

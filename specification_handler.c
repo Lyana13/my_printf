@@ -52,6 +52,8 @@ void init_spec(t_spec *spec)
 }
 
 void correct_spec(t_spec *s) {
+	if (s->precision != INIT_PRECISION && ft_strchr("diouxX", s->specifier))
+		s->flags = s->flags & ~(FT_PRINTF_FLAG_ZERO);
 	if (s->precision == INIT_PRECISION && ft_strrchr("fF", s->specifier))
 		s->precision = 6;
 	if (s->specifier == 'p')

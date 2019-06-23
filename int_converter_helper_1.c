@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int define_base(t_spec *s){
+unsigned int define_base(t_spec *s){
 	if (ft_strchr("xXp", s->specifier))
 		return 16;
 	if (ft_strchr("diu", s->specifier))
@@ -19,7 +19,7 @@ char *define_symbols(t_spec *s){
 	return s->specifier == 'X' ? upper : lower;
 }
 
-int count_len(unsigned long long int i, int base) {
+int count_len(unsigned long long int i, unsigned int base) {
 	int len;
 
 	len = 1;
@@ -31,7 +31,7 @@ int count_len(unsigned long long int i, int base) {
 	return len;
 } 
 
-char *itoa_base(unsigned long long int i, int base, char *symbols) {
+char *itoa_base(unsigned long long int i, unsigned int base, char *symbols) {
 	int len;
 	char *num;
 
