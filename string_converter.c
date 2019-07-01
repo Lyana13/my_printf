@@ -3,7 +3,10 @@
 int calc_len(char *str, t_spec *s){
 	int len;
 
+	if (str == NULL)
+		return 0;
 	len = ft_strlen(str);
+	
 	if (s->precision != INIT_PRECISION && s->precision < len)
 		return s->precision;
 	else
