@@ -12,7 +12,7 @@ void maybe_write_precision(t_spec *s, int len, t_buff *buff){
 }
 
 void maybe_write_sign(t_spec *s, char sign, t_buff *buff){
-	if(!ft_strchr("dioup", s->specifier))
+	if(!ft_strchr("diop", s->specifier))
 		return ;
 	if (sign == '+' && s->flags & FT_PRINTF_FLAG_PLUS)
 		write_char_buff('+', buff);
@@ -26,13 +26,6 @@ void maybe_write_sign(t_spec *s, char sign, t_buff *buff){
 void cleanup_converter(t_int_convert *ic){
 	free(ic->num);
 	free(ic->prefix);
-}
-
-void maybe_write_num(t_int_convert *ic, t_spec *s, t_buff *buff){
-	
-	if(ic->num[0] != '0' || s->precision != 0){
-		write_buff(ic->num, ic->num_len, buff);
-	}
 }
 
 void convert_int(t_spec *s, va_list args, t_buff *buff) {
@@ -49,7 +42,7 @@ void convert_int(t_spec *s, va_list args, t_buff *buff) {
 		maybe_write_sign(s, ic.sign, buff);
 	}
 	maybe_write_precision(s, ic.num_len, buff);
-	maybe_write_num(&ic, s, buff);
+	write_buff(ic.num, ic.num_len, buff);
 	maybe_write_width_right(s, ic.width, buff);
 	cleanup_converter(&ic);
 }

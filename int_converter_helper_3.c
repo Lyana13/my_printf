@@ -1,9 +1,9 @@
 #include "ft_printf.h"
 
-char* create_prefix(t_spec *s, char *num){
+char* create_prefix(t_spec *s, unsigned long long int i){
 	if (s->specifier == 'p')
 		return ft_strdup("0x");
-	if (num[0] == '0')
+	if (i == 0 && s->specifier != 'o')
 		return ft_strdup("");
 	if (s->flags & FT_PRINTF_FLAG_HASH){
 		if (s->specifier == 'o')
@@ -30,10 +30,9 @@ int calc_width(t_spec *s, t_int_convert *ic){
 }
 
 void init_converter(t_spec *s, va_list args, t_int_convert *ic){
-	ic->num = get_ascci_int(s, args, &(ic->sign));
-
+	get_ascci_int(s, args, ic);
 	ic->num_len = ft_strlen(ic->num);
-	ic->prefix = create_prefix(s, ic->num);
+	ic->prefix = create_prefix(s, ic->i);
 	ic->prefix_len = ft_strlen(ic->prefix);
 	ic->width = calc_width(s, ic);
 }

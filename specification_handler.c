@@ -1,16 +1,16 @@
 #include "ft_printf.h"
 
 void convert_spec(t_spec *s, va_list args, t_buff *buff) {
-	static t_converter (converters[3]) = {
+	static t_converter (converters[4]) = {
 		{ .conversions = "s", .converter = &convert_string },
 		{ .conversions = "c%", .converter = &convert_char },
-		{ .conversions = "pdiouxXb", .converter = &convert_int }
-		// { .conversions = "f", .converter = &float_converter },
+		{ .conversions = "pdiouxXb", .converter = &convert_int },
+		{ .conversions = "f", .converter = &float_converter }
 	};
 	int i;
 
 	i = 0;
-	while (i < 3){
+	while (i < 4){
 		if (ft_strchr(converters[i].conversions, s->specifier)){
 			converters[i].converter(s, args, buff);
 			break;

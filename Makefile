@@ -2,7 +2,7 @@
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 OBJ	= ft_printf.o buff.o specification_handler.o specification_parsers.o  \
-	  string_converter.o char_converter.o int_converter.o \
+	  string_converter.o float_converter.o char_converter.o int_converter.o \
 	  int_converter_helper_1.o int_converter_helper_2.o  int_converter_helper_3.o \
 	  width_handler.o
 NAME = libftprintf.a

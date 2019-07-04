@@ -47,9 +47,11 @@ char *itoa_base(unsigned long long int i, unsigned int base, char *symbols) {
 	return num;
 } 
 
-char *get_ascci_int(t_spec *s, va_list args, char *sign) {
-	unsigned long long int i;
+void get_ascci_int(t_spec *s, va_list args, t_int_convert *ic) {
 
-	i = get_int(s, args, sign);
-	return itoa_base(i, define_base(s), define_symbols(s));
+	ic->i = get_int(s, args, &(ic->sign));
+	if(ic->i == 0 && s->precision == 0)
+		ic->num = ft_strdup("");
+	else
+		ic->num = itoa_base(ic->i, define_base(s), define_symbols(s));
 }
