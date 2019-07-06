@@ -12,7 +12,7 @@ void maybe_write_precision(t_spec *s, int len, t_buff *buff){
 }
 
 void maybe_write_sign(t_spec *s, char sign, t_buff *buff){
-	if(!ft_strchr("diop", s->specifier))
+	if(!ft_strchr("diopfF", s->specifier))
 		return ;
 	if (sign == '+' && s->flags & FT_PRINTF_FLAG_PLUS)
 		write_char_buff('+', buff);

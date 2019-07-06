@@ -13,7 +13,8 @@ int main(void){
 	// printf("%d %d\n", mi, si);
 	// printf("%s\n, %d\n",  ponatnoe.buff, ponatnoe.params.width);
 	char *fmt = "%f\n";
-	ft_printf(fmt, 0);
-	printf(fmt, 0);
+
+	ft_printf(fmt, -110.36);
+	printf(fmt, -110.36);
 
 }

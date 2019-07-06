@@ -5,7 +5,7 @@ void convert_spec(t_spec *s, va_list args, t_buff *buff) {
 		{ .conversions = "s", .converter = &convert_string },
 		{ .conversions = "c%", .converter = &convert_char },
 		{ .conversions = "pdiouxXb", .converter = &convert_int },
-		{ .conversions = "f", .converter = &float_converter }
+		{ .conversions = "fF", .converter = &float_converter }
 	};
 	int i;
 

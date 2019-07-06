@@ -45,7 +45,11 @@ char *itoa_base(unsigned long long int i, unsigned int base, char *symbols) {
 		i /= base;
 	}
 	return num;
-} 
+}
+
+char* int_to_string(unsigned long long int i, t_spec *s){
+	return itoa_base(i, define_base(s), define_symbols(s));
+}
 
 void get_ascci_int(t_spec *s, va_list args, t_int_convert *ic) {
 
@@ -53,5 +57,6 @@ void get_ascci_int(t_spec *s, va_list args, t_int_convert *ic) {
 	if(ic->i == 0 && s->precision == 0)
 		ic->num = ft_strdup("");
 	else
-		ic->num = itoa_base(ic->i, define_base(s), define_symbols(s));
+		ic->num = int_to_string(ic->i, s);
+
 }

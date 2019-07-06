@@ -81,5 +81,6 @@ void get_ascci_int(t_spec *s, va_list args, t_int_convert *ic);
 unsigned long long int get_int(t_spec *s, va_list args, char *sign);
 
 void init_converter(t_spec *s, va_list args, t_int_convert *ic);
-char *itoa_base(unsigned long long int i, unsigned int base, char *symbols);
+void maybe_write_sign(t_spec *s, char sign, t_buff *buff);
+char* int_to_string(unsigned long long int i, t_spec *s);
 
