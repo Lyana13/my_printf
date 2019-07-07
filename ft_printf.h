@@ -83,4 +83,5 @@ unsigned long long int get_int(t_spec *s, va_list args, char *sign);
 void init_converter(t_spec *s, va_list args, t_int_convert *ic);
 void maybe_write_sign(t_spec *s, char sign, t_buff *buff);
 char* int_to_string(unsigned long long int i, t_spec *s);
+unsigned int get_digit_after_point_at(unsigned int pos, double num);
 
