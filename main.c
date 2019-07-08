@@ -14,8 +14,8 @@
 
 int	main(void)
 {
-	char	*fmt = "%.300f\n";
+	char	*fmt = "{%f}{%lf}{%Lf}\n";
 
-	ft_printf(fmt, -533.999813);
-	printf(fmt, -533.999813);
+	ft_printf(fmt, 1.42, 1.42, 1.42l);
+	printf(fmt, 1.42, 1.42, 1.42l);
 }

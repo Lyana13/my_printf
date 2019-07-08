@@ -6,22 +6,18 @@
 /*   By: lmalaya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 10:29:01 by lmalaya           #+#    #+#             */
-/*   Updated: 2019/07/08 10:29:03 by lmalaya          ###   ########.fr       */
+/*   Updated: 2019/07/08 22:36:28 by lmalaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	convert_spec(t_spec *s, va_list args, t_buff *buff)
+void					convert_spec(t_spec *s, va_list args, t_buff *buff)
 {
-	static t_converter	(converters[4]) =
-	{
-		{ .conversions = "s", .converter = &convert_string },
-		{ .conversions = "c%", .converter = &convert_char },
-		{ .conversions = "pdiouxXb", .converter = &convert_int },
-		{ .conversions = "fF", .converter = &float_converter }
-	};
-	int		i;
+	int					i;
+	static t_converter	converters[4] =
+	{ {"s", &convert_string}, {"c%", &convert_char},
+	{"pdiouxXb", &convert_int}, {"fF", &float_converter}};
 
 	i = 0;
 	while (i < 4)
@@ -35,10 +31,10 @@ void	convert_spec(t_spec *s, va_list args, t_buff *buff)
 	}
 }
 
-int		parse_spec_opts(char *spec, t_spec *s)
+int						parse_spec_opts(char *spec, t_spec *s)
 {
-	int		i;
-	int		len;
+	int					i;
+	int					len;
 
 	i = 0;
 	len = 0;
@@ -58,7 +54,7 @@ int		parse_spec_opts(char *spec, t_spec *s)
 	}
 }
 
-void	init_spec(t_spec *spec)
+void					init_spec(t_spec *spec)
 {
 	spec->flags = 0;
 	spec->width = 0;
@@ -67,7 +63,7 @@ void	init_spec(t_spec *spec)
 	spec->specifier = 0;
 }
 
-void	correct_spec(t_spec *s)
+void					correct_spec(t_spec *s)
 {
 	if (s->precision != INIT_PRECISION && ft_strchr("diouxX", s->specifier))
 		s->flags = s->flags & ~(FT_PRINTF_FLAG_ZERO);
@@ -77,11 +73,14 @@ void	correct_spec(t_spec *s)
 		s->length_modifier = L;
 }
 
-int		handle_specification(char *spec, va_list args, t_buff *buff)
+int						handle_specification(char *spec, va_list args,
+	t_buff *buff)
 {
-	t_spec	s;
-	int		len;
+	t_spec				s;
+	int					len;
 
+	if (*spec == '\0')
+		return (0);
 	init_spec(&s);
 	len = parse_spec_opts(spec, &s);
 	if (parse_specifier(spec + len, &s))

@@ -6,7 +6,7 @@
 /*   By: lmalaya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 13:19:45 by lmalaya           #+#    #+#             */
-/*   Updated: 2017/11/18 20:54:45 by lmalaya          ###   ########.fr       */
+/*   Updated: 2019/07/08 22:19:46 by lmalaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char		*ft_strtrim(char const *s)
 {
-	int 	i;
+	int		i;
 	int		j;
 	int		k;
 	char	*str;

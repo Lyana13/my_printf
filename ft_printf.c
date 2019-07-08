@@ -49,5 +49,6 @@ int		ft_printf(const char *format, ...)
 	va_end(args);
 	size = buff_size(&buff);
 	flush_buff(&buff);
+	free(buff.data);
 	return (size);
 }

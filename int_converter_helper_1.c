@@ -6,7 +6,7 @@
 /*   By: lmalaya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 10:28:25 by lmalaya           #+#    #+#             */
-/*   Updated: 2019/07/08 10:28:27 by lmalaya          ###   ########.fr       */
+/*   Updated: 2019/07/08 22:21:46 by lmalaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int				count_len(unsigned long long int i, unsigned int base)
 	return (len);
 }
 
-char			*itoa_base(unsigned long long int i, unsigned int base, char *symbols)
+char			*itoa_base(unsigned long long int i, unsigned int base,
+		char *symbols)
 {
 	int		len;
 	char	*num;

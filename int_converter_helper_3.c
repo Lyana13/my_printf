@@ -16,11 +16,11 @@ char	*create_prefix(t_spec *s, unsigned long long int i)
 {
 	if (s->specifier == 'p')
 		return (ft_strdup("0x"));
-	if (i == 0 && s->specifier != 'o')
+	if (i == 0 && (s->specifier != 'o' || s->precision != 0))
 		return (ft_strdup(""));
 	if (s->flags & FT_PRINTF_FLAG_HASH)
 	{
-		if (s->specifier == 'o')
+		if (s->specifier == 'o' && s->precision < 2)
 			return (ft_strdup("0"));
 		else if (s->specifier == 'x')
 			return (ft_strdup("0x"));

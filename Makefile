@@ -24,7 +24,8 @@ main: $(NAME)
 	gcc main.c $(NAME)
 
 clean:
-	rm -f $(OBJ)
+	rm -f *.o
+	rm -f $(LIBFT_DIR)/*.o
 
 fclean: clean
 	rm -f $(NAME)

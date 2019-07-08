@@ -15,7 +15,7 @@
 void	write_width(t_spec *s, int len, t_buff *buff)
 {
 	char	c;
-	int 	i;
+	int		i;
 
 	i = s->width - len;
 	if (s->flags & FT_PRINTF_FLAG_ZERO &&
