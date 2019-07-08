@@ -1,4 +1,3 @@
-
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 OBJ	= ft_printf.o buff.o specification_handler.o specification_parsers.o  \

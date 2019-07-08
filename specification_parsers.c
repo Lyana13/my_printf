@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   specification_parsers.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmalaya <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/08 10:29:10 by lmalaya           #+#    #+#             */
+/*   Updated: 2019/07/08 12:00:52 by lmalaya          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-
-int parse_flags(char *spec, t_spec *s)
+int		parse_flags(char *spec, t_spec *s)
 {
 	if (*spec == '#')
 		s->flags |= FT_PRINTF_FLAG_HASH;
@@ -18,15 +29,17 @@ int parse_flags(char *spec, t_spec *s)
 	return (1);
 }
 
-int parse_width(char *spec, t_spec *s)
+int		parse_width(char *spec, t_spec *s)
 {
-	int i;
-	int width;
+	int		i;
+	int		width;
 
 	i = 0;
-	if (ft_isdigit(spec[i])) {
-		width = 0;	
-		while (ft_isdigit(spec[i])) {
+	if (ft_isdigit(spec[i]))
+	{
+		width = 0;
+		while (ft_isdigit(spec[i]))
+		{
 			width *= 10;
 			width += spec[i] - '0';
 			i++;
@@ -36,16 +49,18 @@ int parse_width(char *spec, t_spec *s)
 	return (i);
 }
 
-int parse_precision(char *spec, t_spec *s)
+int		parse_precision(char *spec, t_spec *s)
 {
-	int i;
-	int precision;
+	int		i;
+	int		precision;
 
 	i = 0;
-	if (spec[i] == '.') {
+	if (spec[i] == '.')
+	{
 		i++;
 		precision = 0;
-		while (ft_isdigit(spec[i])) {
+		while (ft_isdigit(spec[i]))
+		{
 			precision *= 10;
 			precision += spec[i] - '0';
 			i++;
@@ -55,28 +70,32 @@ int parse_precision(char *spec, t_spec *s)
 	return (i);
 }
 
-int parse_length_modifier(char *spec, t_spec *s)
+int		parse_length_modifier(char *spec, t_spec *s)
 {
-	if (spec[0] == 'h' && spec[1] == 'h') {
+	if (spec[0] == 'h' && spec[1] == 'h')
+	{
 		s->length_modifier = HH;
 		return (2);
 	}
-	else if (spec[0] == 'h') {
+	else if (spec[0] == 'h')
+	{
 		s->length_modifier = H;
 		return (1);
 	}
-	else if (spec[0] == 'l' && spec[1] == 'l') {
+	else if (spec[0] == 'l' && spec[1] == 'l')
+	{
 		s->length_modifier = LL;
 		return (2);
 	}
-	else if (spec[0] == 'l') {
+	else if (spec[0] == 'l')
+	{
 		s->length_modifier = L;
 		return (1);
 	}
 	return (0);
 }
 
-int parse_specifier(char *spec, t_spec *s)
+int		parse_specifier(char *spec, t_spec *s)
 {
 	if (ft_strrchr("cspdiouxXf%", *spec) != NULL)
 	{

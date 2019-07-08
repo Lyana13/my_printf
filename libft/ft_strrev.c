@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmalaya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/08 15:07:06 by lmalaya           #+#    #+#             */
-/*   Updated: 2019/07/08 15:07:08 by lmalaya          ###   ########.fr       */
+/*   Created: 2019/07/08 13:41:13 by lmalaya           #+#    #+#             */
+/*   Updated: 2019/07/08 13:41:15 by lmalaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	main(void)
+char	*ft_strrev(char *str)
 {
-	char	*fmt = "%.300f\n";
+    char tmp;
+    int	i;
+    int j;
 
-	ft_printf(fmt, -533.999813);
-	printf(fmt, -533.999813);
+    i = 0;
+    j = ft_strlen(str) - 1;
+    while (i < j)
+    {
+    	tmp = str[i];
+    	str[i] = str[j];
+    	str[j] = tmp;
+    	j--;
+    	i++;
+    }
+    return (str);
 }

@@ -20,7 +20,7 @@ ft_strnew.o ft_strdel.o ft_strclr.o ft_striter.o ft_striteri.o ft_strmap.o \
 ft_strmapi.o ft_strequ.o ft_strnequ.o ft_strsub.o ft_strjoin.o ft_putchar.o \
 ft_putstr.o ft_putendl.o ft_putnbr.o ft_strtrim.o ft_strsplit.o ft_itoa.o\
 ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_lstnew.o\
-ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_lstiter.o ft_lstmap.o ft_lstappend.o \
+ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_strrev.o ft_lstiter.o ft_lstmap.o ft_lstappend.o \
 ft_putstrlen.o ft_count_letters.o ft_count_words.o ft_max.o ft_memdup.o
 
 all: $(NAME)
