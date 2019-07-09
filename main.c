@@ -14,8 +14,8 @@
 
 int	main(void)
 {
-	char	*fmt = "{%f}{%lf}{%Lf}\n";
+	char	*fmt = "%.8b";
 
-	ft_printf(fmt, 1.42, 1.42, 1.42l);
-	printf(fmt, 1.42, 1.42, 1.42l);
+	ft_printf(fmt, 3);
+	//printf(fmt, 0);
 }

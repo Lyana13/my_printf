@@ -97,7 +97,7 @@ int		parse_length_modifier(char *spec, t_spec *s)
 
 int		parse_specifier(char *spec, t_spec *s)
 {
-	if (ft_strrchr("cspdiouxXf%", *spec) != NULL)
+	if (*spec != '\0' && ft_strrchr("cspdiouxXf%b", *spec) != NULL)
 	{
 		s->specifier = *spec;
 		return (1);
