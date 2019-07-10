@@ -13,10 +13,7 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <stdio.h>
 # include <unistd.h>
-# include <limits.h>
-# include <stdint.h>
 # include <stdarg.h>
 # include <stdlib.h>
 # include "./libft/libft.h"
@@ -34,7 +31,8 @@ typedef enum				e_length_modifier
 	H,
 	HH,
 	L,
-	LL
+	LL,
+	LB
 }							t_length_modifier;
 
 typedef struct				s_int_convert
@@ -87,6 +85,7 @@ int							parse_width(char *spec, t_spec *s);
 int							parse_precision(char *spec, t_spec *s);
 int							parse_length_modifier(char *spec, t_spec *s);
 int							parse_specifier(char *spec, t_spec *s);
+int							is_sign_printable(char sign, t_spec *s);
 void						convert_string(t_spec *s, va_list args,
 	t_buff *buff);
 void						convert_char(t_spec *s, va_list args,
@@ -103,7 +102,5 @@ void						init_converter(t_spec *s, va_list args,
 void						maybe_write_sign(t_spec *s, char sign,
 	t_buff *buff);
 char						*int_to_string(unsigned long long int i, t_spec *s);
-unsigned int				get_digit_after_point_at(unsigned int pos,
-	double num);
 
 #endif

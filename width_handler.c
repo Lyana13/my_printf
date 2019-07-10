@@ -20,7 +20,7 @@ void	write_width(t_spec *s, int len, t_buff *buff)
 	i = s->width - len;
 	if (s->flags & FT_PRINTF_FLAG_ZERO &&
 		!(s->flags & FT_PRINTF_FLAG_MINUS) &&
-		ft_strchr("diouxXfFcp%", s->specifier))
+		ft_strchr("diouxXfFcps%", s->specifier))
 		c = '0';
 	else
 		c = ' ';

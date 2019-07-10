@@ -92,12 +92,17 @@ int		parse_length_modifier(char *spec, t_spec *s)
 		s->length_modifier = L;
 		return (1);
 	}
+	else if (spec[0] == 'L')
+	{
+		s->length_modifier = LB;
+		return (1);
+	}
 	return (0);
 }
 
 int		parse_specifier(char *spec, t_spec *s)
 {
-	if (*spec != '\0' && ft_strrchr("cspdiouxXf%b", *spec) != NULL)
+	if (*spec != '\0' && ft_strrchr("cspdiouxXFf%b", *spec) != NULL)
 	{
 		s->specifier = *spec;
 		return (1);

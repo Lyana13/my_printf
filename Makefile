@@ -18,7 +18,6 @@ $(NAME): $(OBJ) $(LIBFT)
 	cp $(LIBFT) ./$(NAME)
 	ar rc $(NAME) $(OBJ) $(LIBFT)
 	ranlib $(NAME)
-#	gcc $(OBJ) $(LIBFT) -o $(NAME)
 
 main: $(NAME)
 	gcc main.c $(NAME)

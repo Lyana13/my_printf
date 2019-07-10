@@ -30,17 +30,24 @@ char	*create_prefix(t_spec *s, unsigned long long int i)
 	return (ft_strdup(""));
 }
 
+int		is_sign_printable(char sign, t_spec *s)
+{
+	if (ft_strchr("dioufF", s->specifier) &&
+		(sign == '-' ||
+			(sign == '+' && (s->flags & FT_PRINTF_FLAG_PLUS ||
+			s->flags & FT_PRINTF_FLAG_SPACE))))
+		return (1);
+	else
+		return (0);
+}
+
 int		calc_width(t_spec *s, t_int_convert *ic)
 {
 	int width;
 
 	width = s->precision > ic->num_len ? s->precision : ic->num_len;
 	width += ic->prefix_len;
-	if (ft_strchr("diou", s->specifier) &&
-		(ic->sign == '-' ||
-			(ic->sign == '+' && (s->flags & FT_PRINTF_FLAG_PLUS ||
-			s->flags & FT_PRINTF_FLAG_SPACE))))
-		width += 1;
+	width += is_sign_printable(ic->sign, s);
 	return (width);
 }
 
